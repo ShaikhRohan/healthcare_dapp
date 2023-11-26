@@ -1,0 +1,165 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "patient",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "doctor",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "doctorNo",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "slotNo",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "date",
+				"type": "string"
+			}
+		],
+		"name": "addToBlockchain",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "sender",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "patient",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "doctor",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "doctorNo",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "slotNo",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "date",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "bookAppointment",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "noOfDoctors",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "noOfSlots",
+				"type": "uint256"
+			}
+		],
+		"name": "setDoctorsAndSlots",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAllAppointments",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "patient",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "doctor",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "slotNo",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "doctorNo",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "date",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Appointments.Appointment[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAppointmentsCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
