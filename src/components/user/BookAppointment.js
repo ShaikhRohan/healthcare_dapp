@@ -3,10 +3,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import userContext from "../../context/users/userContext";
 import Web3 from "web3";
-import {ethers} from 'ethers';
-import contractABI from './appointmentABI.json'
+import axios from "axios";
+import { ethers } from "ethers";
+import contractABI from "./appointmentABI.json";
 export const BookAppointment = (props) => {
-  const contractAddress = '0x94D387F803A4406B88d19646587d5136F959a9Bf';
+  const contractAddress = "0x31a3e125DaF2DAf9eD6f9eB3B11893035666ca1b";
   const [details, setDetails] = useState({
     doctorId: "",
     doctorName: "",
@@ -18,12 +19,13 @@ export const BookAppointment = (props) => {
   const [doctors, setDoctors] = useState([]);
   const [Tommorowdate, setTommorowDate] = useState();
   const context = useContext(userContext);
+  const [fileImg, setFileImg] = useState(null);
   const contract = props.contract;
   let web3 = window.web3;
   const ethereum = window.ethereum;
   const [account, setacc] = useState([]);
 
-  const { bookAppointment,getUser } = context;
+  const { bookAppointment, getUser } = context;
   useEffect(() => {
     async function loadBlockchainData() {
       web3 = new Web3(ethereum);
@@ -70,11 +72,38 @@ export const BookAppointment = (props) => {
     getAppointmentDetails();
   }, []);
 
-  const onSubmit = async (e) => {
+  // file to ipfs
+  const sendFileToIPFS = async (e) => {
     e.preventDefault();
+    if (fileImg) {
+      try {
+        const formData = new FormData();
+        formData.append("file", fileImg);
 
+        const resFile = await axios({
+          method: "post",
+          url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+          data: formData,
+          headers: {
+            pinata_api_key: `3a918a578671e2a090ec`,
+            pinata_secret_api_key: `53266346dee9cec9370ea456dca67803dabe8d033abb7551325f833718ecd72b`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        const ImgHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
+        console.log(ImgHash);
+        onSubmit(ImgHash);
+      } catch (error) {
+        console.log("Error sending File to IPFS: ");
+        console.log(error);
+      }
+    }
+  };
+
+  const onSubmit = async (ImgHash) => {
     let isSubmit = true;
-    console.log(details)
+    console.log(details);
 
     /*const isDateValid = dateValidation();
 
@@ -83,12 +112,14 @@ export const BookAppointment = (props) => {
       isSubmit = false;
     }*/
     // bookAppointment(details.patientName,details.doctorName, details.slotNo, details.date);
-    if (isSubmit && details.slotNo!=="0") {
+    if (isSubmit && details.slotNo !== "0") {
       details.date = Tommorowdate;
       try {
-        const user = await getUser(localStorage.getItem('token'))
+        const user = await getUser(localStorage.getItem("token"));
         //const provider = await new ethers.providers.JsonRpcProvider(`http://127.0.0.1:7545`);
-        const provider = await new ethers.providers.Web3Provider(window.ethereum);
+        const provider = await new ethers.providers.Web3Provider(
+          window.ethereum
+        );
         const signer = provider.getSigner();
         const createContract = await new ethers.Contract(
           contractAddress,
@@ -96,8 +127,15 @@ export const BookAppointment = (props) => {
           provider
         );
         const createAppointment = await createContract
-        .connect(signer)
-        .addToBlockchain(user.name, doctors[parseInt(details.doctorId)-1].name,parseInt(details.doctorId),details.slotNo,Tommorowdate);
+          .connect(signer)
+          .addToBlockchain(
+            user.name,
+            doctors[parseInt(details.doctorId) - 1].name,
+            parseInt(details.doctorId),
+            details.slotNo,
+            Tommorowdate,
+            ImgHash.toString()
+          );
         const receipt = await createAppointment.wait();
         alert("Appointment Done " + JSON.stringify(receipt));
         // const user = await getUser(localStorage.getItem('token'))
@@ -112,16 +150,15 @@ export const BookAppointment = (props) => {
         //   .send({ from: account[0] });
         // console.log("Appointment booked successfully ! "+JSON.stringify(hash));
       } catch (error) {
-        alert("Slot already filled"+ JSON.stringify(error));
+        alert("Slot already filled" + JSON.stringify(error));
       }
-    }
-    else{
-      alert("Choose Slot Number!")
+    } else {
+      alert("Choose Slot Number!");
     }
   };
   const onChange = (e) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
-    console.log(details)
+    console.log(details);
   };
   /*const dateValidation = () => {
     var now = new Date();
@@ -137,9 +174,9 @@ export const BookAppointment = (props) => {
           <h1>Book an Appointment</h1>
           <br></br>
           <Form
-            onSubmit={onSubmit}
+            onSubmit={sendFileToIPFS}
             style={{ display: "flex", flexDirection: "column" }}
-            method="POST"
+            // method="POST"
           >
             <Form.Group
               style={{ display: "flex", flexDirection: "row" }}
@@ -155,13 +192,14 @@ export const BookAppointment = (props) => {
                   name="doctorId"
                   value={details.doctorId}
                 >
-                  <option >Choose doctor id</option>
-                  {doctors.map((ele,i)=>{
-                    return(
-                      <option key={i} value={i+1}>{i+1}</option>
-                    )
+                  <option>Choose doctor id</option>
+                  {doctors.map((ele, i) => {
+                    return (
+                      <option key={i} value={i + 1}>
+                        {i + 1}
+                      </option>
+                    );
                   })}
-                  
                 </Form.Control>
               </div>
               <div style={{ marginRight: "30px" }}>
@@ -173,22 +211,39 @@ export const BookAppointment = (props) => {
                   name="slotNo"
                   value={details.slotNo}
                 >
-                  <option >Choose Slot Number</option>
-                  <option key={1} value="1">1</option>
-                  <option key={2} value="2">2</option>
-                  <option key={3} value="3">3</option>
-                  <option key={4} value="4">4</option>
-                  <option key={5} value="5">5</option>
-                  
+                  <option>Choose Slot Number</option>
+                  <option key={1} value="1">
+                    1
+                  </option>
+                  <option key={2} value="2">
+                    2
+                  </option>
+                  <option key={3} value="3">
+                    3
+                  </option>
+                  <option key={4} value="4">
+                    4
+                  </option>
+                  <option key={5} value="5">
+                    5
+                  </option>
                 </Form.Control>
               </div>
+            </Form.Group>
+            <Form.Group controlId="formFile" className="mb-3">
+              <Form.Label>Add Report</Form.Label>
+              <Form.Control
+                onChange={(e) => setFileImg(e.target.files[0])}
+                name="report"
+                type="file"
+              />
             </Form.Group>
             <Form.Group
               style={{ display: "flex", flexDirection: "row" }}
               className="mb-3"
               controlId="doctor_patient_Details"
-            >
-            </Form.Group>
+            ></Form.Group>
+
             {/* <Form.Group
               style={{ display: "flex", flexDirection: "row" }}
               className="mb-3"

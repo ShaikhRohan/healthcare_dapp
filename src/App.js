@@ -118,10 +118,10 @@ function App() {
                   element={<AccountDetails type="user" />}
                 />
 
-                <Route exact path="/pharma" element={<Home type="pharma" s1="Create and Add Receipts to Sell Medicines" s2="View Drug Inventory" s3="View your Account Details
+                <Route exact path="/doctor" element={<Home type="doctor" s1="Create and Add Receipts to Sell Medicines" s2="View Drug Inventory" s3="View your Account Details
 "/>} />
 
-                <Route exact path="pharma/login" element={<PharmaLogin name="Pharmacist" />} />
+                <Route exact path="doctor/login" element={<PharmaLogin name="Doctor" />} />
 
                 <Route
                   exact
@@ -129,7 +129,7 @@ function App() {
                   element={<DrugInventoryDetail contract={DIContract} />}
                 />
                 <Route
-                  exact path="pharma/viewmed"
+                  exact path="doctor/viewmed"
                   element={<MedicineDetail contract={DIContract} />}
                 />
                 <Route
@@ -139,7 +139,7 @@ function App() {
                 />
                 <Route
                   exact
-                  path="pharma/accdetails"
+                  path="doctor/accdetails"
                   element={<AccountDetails type="pharmacist" />}
                 />
 

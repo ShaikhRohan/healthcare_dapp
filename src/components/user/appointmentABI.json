@@ -25,6 +25,11 @@
 				"internalType": "string",
 				"name": "date",
 				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "pdfuri",
+				"type": "string"
 			}
 		],
 		"name": "addToBlockchain",
@@ -76,6 +81,12 @@
 				"internalType": "uint256",
 				"name": "timestamp",
 				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "pdfuri",
+				"type": "string"
 			}
 		],
 		"name": "bookAppointment",
@@ -139,6 +150,11 @@
 						"internalType": "uint256",
 						"name": "timestamp",
 						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "pdfuri",
+						"type": "string"
 					}
 				],
 				"internalType": "struct Appointments.Appointment[]",

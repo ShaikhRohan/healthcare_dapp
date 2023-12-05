@@ -13,9 +13,9 @@ export const PharmaLogin = (props) => {
       if (localStorage.getItem('pharmaToken')) {
         const pharma = await getPharmacist(localStorage.getItem('pharmaToken'))
         if (pharma._id) {
-          navigate("/pharma");
+          navigate("/doctor");
         } else {
-          navigate("/pharma/login");
+          navigate("/doctor/login");
         }
       }
     }
@@ -28,11 +28,11 @@ export const PharmaLogin = (props) => {
     e.preventDefault();
     const response = await login(credentials.email, credentials.password);
     if (response.success) {
-      navigate('/pharma')
+      navigate('/doctor')
       localStorage.setItem('pharmaToken', response.authtoken);
     }
     else {
-      navigate('/pharma/login')
+      navigate('/doctor/login')
       setCredentials({ email: "", password: "" })
       alert("Enter correct credentials to Login !")
     }

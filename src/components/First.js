@@ -2,14 +2,14 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-const Logo = require("./sastra_logo.png");
+const Logo = require("./Hospital.jpg");
 export const First = () => {
   const navigate = useNavigate();
   const userLogin = () => {
     navigate("/user/login");
   };
   const pharmaLogin = () => {
-    navigate("/pharma/login");
+    navigate("/doctor/login");
   };
   const adminLogin = () => {
     navigate("/admin/login");
@@ -103,7 +103,7 @@ export const First = () => {
               variant="secondary"
               onClick={pharmaLogin}
             >
-              Pharmacist
+              Doctor
             </Button>{" "}
             <Button
               style={{ margin: "20px" }}
@@ -124,9 +124,9 @@ export const First = () => {
             <b>
             Developed by
             <br />
-            Inti Dhiraj
+            Obaid
             <br />
-            Dhavala Sai Sri Mahita
+            {/* Dhavala Sai Sri Mahita */}
             </b>
           </h6>
         </div>

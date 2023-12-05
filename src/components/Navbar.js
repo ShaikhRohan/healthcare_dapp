@@ -14,10 +14,10 @@ export const Navbar = () => {
       setLogin(false);
       navigate('/user/login');
     }
-    else if (c === "p") {
+    else if (c === "d") {
       localStorage.removeItem('pharmaToken');
       setLogin(false);
-      navigate('/pharma/login');
+      navigate('/doctor/login');
     }
     else if (c === "a") {
       navigate('/admin/login');
@@ -30,8 +30,8 @@ export const Navbar = () => {
     let ch = x.charAt(5)
     if (c === "u") {
       setType("user");
-    } else if (c === "p") {
-      setType("pharma");
+    } else if (c === "d") {
+      setType("doctor");
     } else if (c === "a") {
       setType("admin");
     }
@@ -39,7 +39,7 @@ export const Navbar = () => {
       setType("");
     }
 
-    if ((localStorage.getItem("token") && c === "u") || (localStorage.getItem("pharmaToken") && c === "p") || (ch === 'n' && x.length >= 6 && x.charAt(7) !== 'l')) {
+    if ((localStorage.getItem("token") && c === "u") || (localStorage.getItem("pharmaToken") && c === "d") || (ch === 'n' && x.length >= 6 && x.charAt(7) !== 'l')) {
       setLogin(true);
     } else {
       setLogin(false);
@@ -120,9 +120,9 @@ export const Navbar = () => {
             </ul>
           )}
 
-          {type === "pharma" && login && (
+          {type === "doctor" && login && (
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link
                   className={`nav-link ${location.pathname === "/pharma/sellmedicine" ? "active" : ""
                     }`}
@@ -130,8 +130,8 @@ export const Navbar = () => {
                 >
                   Sell Medicines
                 </Link>
-              </li>
-              <li className="nav-item">
+              </li> */}
+              {/* <li className="nav-item">
                 <Link
                   className={`nav-link ${location.pathname === "/pharma/druginv" ? "active" : ""
                     }`}
@@ -139,30 +139,30 @@ export const Navbar = () => {
                 >
                   Drug Inventory
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link
-                  className={`nav-link ${location.pathname === "/pharma/viewmed" ? "active" : ""
+                  className={`nav-link ${location.pathname === "/doctor/viewmed" ? "active" : ""
                     }`}
-                  to="/pharma/viewmed"
+                  to="/doctor/viewmed"
                 >
-                  Medicine Details
+                  Appointment Details
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  className={`nav-link ${location.pathname === "/pharma/accdetails" ? "active" : ""
+                  className={`nav-link ${location.pathname === "/doctor/accdetails" ? "active" : ""
                     }`}
-                  to="/pharma/accdetails"
+                  to="/doctor/accdetails"
                 >
                   Account Details
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  className={`nav-link ${location.pathname === "/pharma/login" ? "active" : ""
+                  className={`nav-link ${location.pathname === "/doctor/login" ? "active" : ""
                     }`}
-                  to="/pharma/login"
+                  to="/doctor/login"
                   onClick={Logout}
                 >
                   Log out

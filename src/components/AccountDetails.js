@@ -100,10 +100,10 @@ export const AccountDetails = (props) => {
               <td><b>Name</b></td>
               <td>{details.name}</td>
             </tr>
-            <tr>
+            {/* <tr>
               <td><b>DOB</b></td>
               <td>{details.dob}</td>
-            </tr>
+            </tr> */}
             <tr>
               <td><b>Phone number</b></td>
               <td>{details.phoneNumber}</td>

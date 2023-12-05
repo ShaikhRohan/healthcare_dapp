@@ -8,7 +8,7 @@ const PharmacistState = (props) => {
     const [myReceipts, setMyReceipts] = useState([])
 
     const login = async (email, password) => {
-        const response = await fetch(`${host}/api/auth/pharmacist/login`, {
+        const response = await fetch(`${host}/api/auth/doctor/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -20,7 +20,7 @@ const PharmacistState = (props) => {
     }
 
     const getPharmacist = async (pharmaToken) => {
-        const response = await fetch(`${host}/api/auth/pharmacist/getpharmacist`, {
+        const response = await fetch(`${host}/api/auth/doctor/getdoctor`, {
             method: 'POST',
             headers: {
                 'auth-token': pharmaToken
