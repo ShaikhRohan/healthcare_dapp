@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import contractABI from "./appointmentABI.json";
 import { ethers } from "ethers";
 const AppointmentsDetail = (props) => {
-  const contractAddress = "0x31a3e125DaF2DAf9eD6f9eB3B11893035666ca1b";
+  const contractAddress = "0x5EfB63e15f0a090E4AE9Bf88D391889D51212d59";
   const [res, setRes] = useState([]);
   const [walletAddress, setWalletAddress] = useState("");
   useEffect(() => {
@@ -20,6 +20,7 @@ const AppointmentsDetail = (props) => {
         .connect(signer)
         .getAllAppointments();
       setRes(getAllAppointments);
+      console.log(getAllAppointments)
       //let x = await props.contract.methods.getAllAppointments().call();
       //setRes(x);
     }

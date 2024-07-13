@@ -7,7 +7,7 @@ import axios from "axios";
 import { ethers } from "ethers";
 import contractABI from "./appointmentABI.json";
 export const BookAppointment = (props) => {
-  const contractAddress = "0x31a3e125DaF2DAf9eD6f9eB3B11893035666ca1b";
+  const contractAddress = "0x5EfB63e15f0a090E4AE9Bf88D391889D51212d59";
   const [details, setDetails] = useState({
     doctorId: "",
     doctorName: "",

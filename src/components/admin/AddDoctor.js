@@ -5,7 +5,7 @@ import userContext from "../../context/users/userContext";
 import axios from "axios";
 import Web3 from "web3";
 export const AddDoctor = (props) => {
-  const contractAddress = '0x31a3e125DaF2DAf9eD6f9eB3B11893035666ca1b';
+  const contractAddress = '0x5EfB63e15f0a090E4AE9Bf88D391889D51212d59';
   const [details, setDetails] = useState({
     doctorName: "",
     doctorEmail: "",

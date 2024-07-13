@@ -62,7 +62,7 @@ export const MedicineDetail = (props) => {
   const [details, setDetails] = useState(null);
   const PharmaContext = useContext(PharmacistContext);
   const { getPharmacist } = PharmaContext;
-  const contractAddress = "0x31a3e125DaF2DAf9eD6f9eB3B11893035666ca1b";
+  const contractAddress = "0x5EfB63e15f0a090E4AE9Bf88D391889D51212d59";
   const [res, setRes] = useState([]);
   const [walletAddress, setWalletAddress] = useState("");
   function filterDoctorsByName(doctorArray, targetDoctorName) {
@@ -86,7 +86,9 @@ export const MedicineDetail = (props) => {
       const getAllAppointments = await createContract
         .connect(signer)
         .getAllAppointments();
+        console.log(getAllAppointments)
       const theFilterValue = filterDoctorsByName(getAllAppointments , json.name)
+      console.log(props.type)
       setRes(theFilterValue);
       //let x = await props.contract.methods.getAllAppointments().call();
       //setRes(x);
@@ -115,7 +117,7 @@ export const MedicineDetail = (props) => {
         </thead>
         <tbody className="table-hover">
           {res.map((ele, i) => {
-            return ele.sender === walletAddress || props.type === "admin" ? (
+            return ele.sender === walletAddress || props.type === undefined ? (
               <tr key={i}>
                 <th scope="row">{i + 1}</th>
                 <td>{ele.sender}</td>

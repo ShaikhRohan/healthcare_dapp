@@ -173,7 +173,7 @@ export const Navbar = () => {
 
           {type === "admin" && login && (
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link
                   className={`nav-link ${location.pathname === "/admin/druginv" ? "active" : ""
                     }`}
@@ -181,7 +181,7 @@ export const Navbar = () => {
                 >
                   Drug Inventory
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link
                   className={`nav-link ${location.pathname === "/admin/appointments" ? "active" : ""
@@ -192,7 +192,7 @@ export const Navbar = () => {
                   Appointments
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link
                   className={`nav-link ${location.pathname === "/admin/viewmed" ? "active" : ""
                     }`}
@@ -200,7 +200,7 @@ export const Navbar = () => {
                 >
                   Medicine Details
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link
                   className={`nav-link ${location.pathname === "/admin/accdetails" ? "active" : ""
